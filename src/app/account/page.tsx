@@ -18,7 +18,7 @@ export default function Account() {
                     </div>
                 </div> :
                 <div>
-                    <div>You're not signIn</div>
+                    <div>Youre not signIn</div>
                     <button className='text-success' onClick={() => signIn()}>signIn</button>
                 </div>
 
