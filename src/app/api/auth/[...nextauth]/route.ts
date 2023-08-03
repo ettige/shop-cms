@@ -1,33 +1,40 @@
-import NextAuth, { AuthOptions } from 'next-auth'
-import GitHubProvider from 'next-auth/providers/github'
-import { PrismaAdapter } from '@next-auth/prisma-adapter'
-import { PrismaClient } from '@prisma/client'
-export const dynamic = 'force-dynamic'
-// 'auto' | 'force-dynamic' | 'error' | 'force-static'
-const prisma = new PrismaClient()
+import NextAuth, { AuthOptions } from 'next-auth';
+import GitHubProvider from 'next-auth/providers/github';
+import DiscordProvider from 'next-auth/providers/discord';
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 const authOptions: AuthOptions = {
   providers: [
     GitHubProvider({
       clientId: String(process.env.GITHUB_ID),
       clientSecret: String(process.env.GITHUB_SECRET),
     }),
+    DiscordProvider({
+      clientId: String(process.env.DISCORD_ID),
+      clientSecret: String(process.env.DISCORD_SECRET),
+    }),
   ],
   session: {
     strategy: 'jwt',
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user,session }) {
       if (user) {
         // token.role = user.role
-        token.id = user.id
+        token.sub="BOol";
+        token.name=user.name;
+        token.id = user.id;
+        token.email = user.email; // Assuming you have the email available in the user object
       }
-
-      return token
+      return token;
     },
+
   },
   adapter: PrismaAdapter(prisma),
-}
+};
 
-const handler = NextAuth(authOptions)
+const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST }
+export { handler as GET, handler as POST };
