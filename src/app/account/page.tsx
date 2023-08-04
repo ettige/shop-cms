@@ -28,6 +28,3 @@ export default function Account() {
         </main>
     )
 }
-Account.auth = {
-    role: "ADMIN"
-}
