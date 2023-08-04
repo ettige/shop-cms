@@ -45,7 +45,7 @@ const authOptions: AuthOptions = {
       return session
     }
   },
-  adapter: PrismaAdapter(prisma),
+
 };
 
 const handler = NextAuth(authOptions);
