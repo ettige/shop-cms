@@ -1,6 +1,6 @@
 'use client'
 import { useSession, signIn, signOut } from 'next-auth/react'
-
+import Image from 'next/image'
 export default function Home() {
   const { data: session, status, update } = useSession()
 
@@ -32,7 +32,7 @@ export default function Home() {
     return (
       <main className="container text-center items-center justify-center flex h-screen">
         <div>
-          <div>You're not Sign In</div>
+          <div>You&apos;re not Sign In</div>
           <div className='flex flex-col gap-2'>
             <button className='btn btn-wide btn-neutral' onClick={() => signIn('github')}>Github</button>
             <button className='btn btn-wide bg-indigo-700 hover:bg-indigo-600' onClick={() => signIn('discord')}>Discord</button>
