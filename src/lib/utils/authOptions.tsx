@@ -82,7 +82,7 @@ const authOptions: AuthOptions = {
     }
   },
   pages: {
-    signIn: "/"
+    signIn: "/signin"
   },
   adapter: PrismaAdapter(prisma),
 };
