@@ -1,11 +1,12 @@
-import{ AuthOptions } from 'next-auth';
+import { AuthOptions } from 'next-auth';
 import GitHubProvider from 'next-auth/providers/github';
 import DiscordProvider from 'next-auth/providers/discord';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
+import prisma from '@/lib/utils/prisma';
+import { use } from 'react';
+
 const authOptions: AuthOptions = {
   providers: [
     GitHubProvider({
@@ -69,14 +70,15 @@ const authOptions: AuthOptions = {
   callbacks: {
     async jwt({ session, token, user }) {
       if (user) {
-        token.id = user.id;
         token.name = user.name;
         token.email = user.email;
       }
+
       return token;
     },
     async session({ session, token, user }) {
       // Send properties to the client, like an access_token and user id from a provider.
+      session.user.userId = token.sub
 
       return session
     }

@@ -1,12 +1,15 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Vazirmatn } from 'next/font/google'
+import { ThemeProvider } from '@/components/providers/theme-provider'
+import { ModalProvider } from '@/components/providers/modal-provider'
+import AuthProvider from '@/components/providers/auth-provider'
 
-const inter = Inter({ subsets: ['latin'] })
+const vazirmatn = Vazirmatn({ subsets: ['arabic'] })
 
 export const metadata: Metadata = {
-  title: 'Nextjs-auth-prisma-daisyui',
-  description: 'Nextjs template along with next-auth, prisma, daisyui',
+  title: "ShipShop",
+  description: "Ship Shop ",
 }
 
 export default function RootLayout({
@@ -15,9 +18,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html data-theme="lofi" lang="en">
-      <body className={inter.className}>
-          {children}
+    <html dir='rtl' lang="fa">
+      <body className={vazirmatn.className}>
+        <AuthProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <ModalProvider />
+            {children}
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   )
