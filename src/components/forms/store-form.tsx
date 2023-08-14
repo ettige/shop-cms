@@ -3,11 +3,11 @@ import * as z from "zod"
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form";
-import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 
+import { useToast } from "@/components/ui/use-toast"
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
@@ -21,7 +21,7 @@ const formSchema = z.object({
 
 export const StoreForm = ({ onCancel }: { onCancel: () => void }) => {
     const router = useRouter();
-
+    const { toast } = useToast()
     const [loading, setLoading] = useState(false);
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -37,7 +37,10 @@ export const StoreForm = ({ onCancel }: { onCancel: () => void }) => {
             const response = await axios.post('/api/stores', values);
             router.replace(`/${response.data.id}`);
         } catch (error) {
-            toast.error('Something went wrong');
+            toast({
+                title: "خطا در اتصال.",
+                variant: "destructive"
+              })
         } finally {
             setLoading(false);
         }

@@ -14,8 +14,7 @@ export const StoreModal = () => {
             isOpen={store.isOpen}
             onClose={store.onClose}
         >
-            <SigninForm onCancel={() => { }} />
-            {/* <StoreForm onCancel={store.onClose} /> */}
+            <StoreForm onCancel={store.onClose} />
         </Modal>
     )
 }

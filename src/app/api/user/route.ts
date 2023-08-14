@@ -1,8 +1,8 @@
+import authOptions from "@/lib/utils/authOptions";
+import { getServerSession } from "next-auth/next";
 import { NextResponse } from "next/server";
 import prisma from "@/lib/utils/prisma";
-import authOptions from "@/lib/utils/authOptions";
-import { getServerSession } from "next-auth";
-export const POST = async (req: Request) => {
+export const GET = async (req: Request) => {
     try {
         const session = await getServerSession(authOptions);
 
@@ -17,25 +17,17 @@ export const POST = async (req: Request) => {
         })
         const userId = user?.id || ""
 
-        const body = await req.json();
-
-        const { name } = body;
-
-
-        if (!name) {
-            return new NextResponse("Name is required", { status: 400 });
-        }
-
-        const store = await prisma.store.create({
-            data: {
-                name,
-                userId,
+        const stores = await prisma.store.findMany({
+            where: {
+                userId: userId
             }
         });
-
-        return NextResponse.json(store);
+       
+        return NextResponse.json({ user: user, stores: stores });
+        
     } catch (error) {
         console.log('[STORES_POST]', error);
         return new NextResponse("Internal error", { status: 500 });
     }
+
 }

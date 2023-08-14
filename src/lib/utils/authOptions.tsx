@@ -42,6 +42,9 @@ const authOptions: AuthOptions = {
               })
               return user;
             }
+            else {
+              //logic email exist
+            }
           }
           else {
 

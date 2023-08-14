@@ -1,6 +1,8 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Vazirmatn } from 'next/font/google'
+
+import { Toaster } from '@/components/ui/toaster'
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import { ModalProvider } from '@/components/providers/modal-provider'
 import AuthProvider from '@/components/providers/auth-provider'
@@ -23,6 +25,7 @@ export default function RootLayout({
         <AuthProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <ModalProvider />
+            <Toaster />
             {children}
           </ThemeProvider>
         </AuthProvider>

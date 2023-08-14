@@ -1,14 +1,16 @@
-import React from "react"
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
     children,
     params,
 }: {
     children: React.ReactNode,
     params: { storeId: string }
 }) {
-    console.log(params)
+
+    console.log(params.storeId)
     return (
-        { children }
+        <div>
+            {children}
+        </div>
     )
 }
